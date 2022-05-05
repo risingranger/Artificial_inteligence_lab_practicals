@@ -1,48 +1,43 @@
+# Depth Limited Search
+
+'''
+Similar to DFS but with a limit in depth of the search. The current node is tested to check if it is equal to the goal node.
+'''
+
 graph = {
-    'A':['B','C'],
-    'B':['D','E'],
-    'C':['F','G'],
-    'D':['H','I'],
-    'E':['J','K'],
-    'F':['L','M'],
-    'G':['N','O'],
-    'H':[],
-    'I':[],
-    'J':[],
-    'K':[],
-    'L':[],
-    'M':[],
-    'N':[],
-    'O':[]
+  '5' : ['3','7'],
+  '3' : ['2', '4'],
+  '7' : ['8'],
+  '2' : [],
+  '4' : ['8'],
+  '8' : []
 }
 
-def DLS(start,goal,path,level,maxD):
-  print('\nCurrent level-->',level)
-  print('Goal node testing for',start)
+def DLS(start, goal, path, level, max_depth):
+  print("Current level -->", level)
   path.append(start)
-  if start == goal:
-    print("Goal test successful")
+  if(start == goal):
+    print('Goal test successful')
     return path
-  print('Goal node testing failed')
-  if level==maxD:
+  print("Goal test failed")
+  if level == max_depth:
     return False
-  print('\nExpanding the current node',start)
+  # Expanding the current node
   for child in graph[start]:
-    if DLS(child,goal,path,level+1,maxD):
+    if DLS(child,goal, path, level + 1, max_depth):
       return path
     path.pop()
   return False
-  
-  
-  
-start = 'A'
-goal = input('Enter the goal node:-')
-maxD = int(input("Enter the maximum depth limit:-"))
-print()
-path = list()
-res = DLS(start,goal,path,0,maxD)
+
+# Driver code
+start = '5'
+goal = '7'
+path = []
+max_depth = int(input("Enter the max depth: "))
+res = DLS(start, goal, path, 0, max_depth)
+
 if(res):
-    print("Path to goal node available")
-    print("Path",path)
+  print("\nPath to goal node available")
+  print("Path: ",path)
 else:
-    print("No path available for the goal node in given depth limit")
+  print("\nPath to the goal node is not available")
