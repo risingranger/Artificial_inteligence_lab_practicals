@@ -1,38 +1,22 @@
-# this is the property of edwin, the sexiest coder alive
-# nahi samaj mein aa raha hai ye code toh chuulu bhar paani mein dub maro
-# mereko dm mat karna doubts ke sath
-# If the user is a member of the fairer sex call +91 89285 72970 for 1 on 1 sessions 5000 per session
+# Using a Python dictionary to act as an adjacency list
+graph = {
+  '5' : ['3','7'],
+  '3' : ['2', '4'],
+  '7' : ['8'],
+  '2' : [],
+  '4' : ['8'],
+  '8' : []
+}
 
-class DFS:
-	number_of_Edges = 0
-	adjacencyMatrix = []
-	def __init__(self,number_of_Edges,adjacencyMatrix):
-		self.number_of_Edges= number_of_Edges
-		self.adjacencyMatrix = adjacencyMatrix
-		self.visited = [0]*number_of_Edges
+visited = set() # Set to keep track of visited nodes of graph.
 
-	def traverse(self,source):
-	    print(source)
-	    # adding the node to the visited list
-	    self.visited[source] = 1
-	    for i in range(self.number_of_Edges):
-	    	if self.adjacencyMatrix[source][i] == 1 and self.visited[i] == 0:
-	    		self.traverse(i)
-					
-def main():
-	n=7
-	adjacencyMatrix = [
-		[0,1,1,1,0,0,0],
-		[1,0,1,0,0,0,0],
-		[1,1,0,1,1,0,0],
-		[1,0,1,0,1,0,0],
-		[0,0,1,1,0,1,1],
-		[0,0,0,0,1,0,0],
-		[0,0,0,0,1,0,0]
-	]
+def dfs(visited, graph, node):  #function for dfs 
+    if node not in visited:
+        print (node)
+        visited.add(node)
+        for neighbour in graph[node]:
+            dfs(visited, graph, neighbour)
 
-	dfs = DFS(n,adjacencyMatrix)
-	dfs.traverse(4)
-
-if __name__ == "__main__":
-	main()
+# Driver Code
+print("Following is the Depth-First Search")
+dfs(visited, graph, '5')
