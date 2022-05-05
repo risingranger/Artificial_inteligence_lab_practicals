@@ -1,41 +1,28 @@
-from queue import Queue
+graph = {
+  '5' : ['3','7'],
+  '3' : ['2', '4'],
+  '7' : ['8'],
+  '2' : [],
+  '4' : ['8'],
+  '8' : []
+}
 
-class BFS:
-	number_of_Edges = 0
-	adjacencyMatrix = []
-	def __init__(self,number_of_Edges,adjacencyMatrix):
-		self.number_of_Edges= number_of_Edges
-		self.adjacencyMatrix = adjacencyMatrix
-		self.visited = []*number_of_Edges
+visited = [] # List for visited nodes.
+queue = []     #Initialize a queue
 
-	def traverse(self,source):
-	    q = Queue(maxsize=50)
-	    visited = [0]*self.number_of_Edges
-	    print("Node:"+str(source))
-	    visited[source] = 1
-	    q.put(source)
-	    while not q.empty():
-	        node = q.get()
-	        for j in range(self.number_of_Edges):
-	            if self.adjacencyMatrix[node][j] == 1 and visited[j] == 0:
-	                print("Node:"+str(j))
-	                visited[j] = 1
-	                q.put(j)
-					
-def main():
-	n=7
-	adjacencyMatrix = [
-		[0,1,1,1,0,0,0],
-		[1,0,1,0,0,0,0],
-		[1,1,0,1,1,0,0],
-		[1,0,1,0,1,0,0],
-		[0,0,1,1,0,1,1],
-		[0,0,0,0,1,0,0],
-		[0,0,0,0,1,0,0]
-	]
+def bfs(visited, graph, node): #function for BFS
+  visited.append(node)
+  queue.append(node)
 
-	bfs = BFS(n,adjacencyMatrix)
-	bfs.traverse(1)
+  while queue:          # Creating loop to visit each node
+    m = queue.pop(0) 
+    print (m, end = " ") 
 
-if __name__ == "__main__":
-	main()
+    for neighbour in graph[m]:
+      if neighbour not in visited:
+        visited.append(neighbour)
+        queue.append(neighbour)
+
+# Driver Code
+print("Following is the Breadth-First Search")
+bfs(visited, graph, '5')    # function calling
